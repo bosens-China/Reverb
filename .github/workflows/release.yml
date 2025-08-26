@@ -6,8 +6,8 @@ on:
     branches: [main]
 
 permissions:
-  contents: write # 创建 Release、上传资产
-  pull-requests: write # 维护 Release-Please PR
+  contents: write
+  pull-requests: write
 
 jobs:
   release-please:
@@ -20,8 +20,7 @@ jobs:
         uses: googleapis/release-please-action@v4
         id: release
         with:
-          release-type: node # 根据 package.json 版本号策略
-          # manifest-file: .release-please-manifest.json  # 如有自定义
+          release-type: node
 
   build-windows:
     needs: release-please
@@ -31,21 +30,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm' # Corepack 会自动装 packageManager 指定版本的 pnpm
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build & package (Windows)
         run: pnpm build:win
+        # 如需代码签名，取消下面两行并配置对应 secret
         # env:
-        # 如需代码签名，取消下面两行注释并配置对应 secret
-        # CSC_LINK: ${{ secrets.WIN_CERT_BASE64 }}
-        # CSC_KEY_PASSWORD: ${{ secrets.WIN_CERT_PASSWORD }}
+        #   CSC_LINK: ${{ secrets.WIN_CERT_BASE64 }}
+        #   CSC_KEY_PASSWORD: ${{ secrets.WIN_CERT_PASSWORD }}
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2

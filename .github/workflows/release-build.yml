@@ -2,7 +2,7 @@ name: Build and Upload Release
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   build-release:

@@ -1,0 +1,9 @@
+node_modules
+dist
+out
+.DS_Store
+.eslintcache
+*.log*
+
+src/renderer/src/routeTree.gen.ts
+.tanstack/tmp

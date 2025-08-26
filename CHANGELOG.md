@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/bosens-China/Reverb/compare/v1.1.1...v1.1.2) (2025-08-26)
+
+
+### Bug Fixes
+
+* 修复缺少 routeTree.gen.ts 导致的报错 ([c172b11](https://github.com/bosens-China/Reverb/commit/c172b11046b4080286d4bf52396ac8e8f7145ffe))
+
 ## [1.1.1](https://github.com/bosens-China/Reverb/compare/v1.1.0...v1.1.1) (2025-08-26)
 
 

@@ -3,32 +3,12 @@ import { join, extname, basename } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import loudness from 'loudness'
-
 import Store from 'electron-store'
 import fs from 'fs'
 
 const { getVolume, setVolume } = loudness
 // 初始化持久化存储
 const store = new Store()
-
-// --- “remind-app” 到 “xiaosheng” 的一次性数据迁移 ---
-try {
-  const currentStore = new Store() // 默认为 “xiaosheng”
-  // 仅当新存储为空时才进行迁移
-  if (Object.keys(currentStore.store).length === 0) {
-    const oldStore = new Store({ name: 'remind-app' })
-    if (fs.existsSync(oldStore.path)) {
-      const oldData = oldStore.store
-      if (oldData && Object.keys(oldData).length > 0) {
-        currentStore.store = oldData
-        console.log('成功从 \'remind-app\' 迁移数据到 \'xiaosheng\'.')
-      }
-    }
-  }
-} catch (error) {
-  console.error('数据迁移失败:', error)
-}
-// --- 迁移结束 ---
 
 // 主窗口实例
 let mainWindow: BrowserWindow | null = null

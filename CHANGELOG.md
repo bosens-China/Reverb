@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/bosens-China/Reverb/compare/v1.1.2...v1.1.3) (2025-08-26)
+
+
+### Bug Fixes
+
+* 删除了“remind-app”到“xiaosheng”的数据迁移代码 ([586800b](https://github.com/bosens-China/Reverb/commit/586800b8bc1c0bc476574be636ecaabbc8304eec))
+
 ## [1.1.2](https://github.com/bosens-China/Reverb/compare/v1.1.1...v1.1.2) (2025-08-26)
 
 

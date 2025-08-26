@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/bosens-China/Reverb/compare/xiaosheng-v1.0.0...xiaosheng-v1.0.1) (2025-08-26)
+
+
+### Bug Fixes
+
+* **ci:** trigger build workflow on release 'published' ([f3c491b](https://github.com/bosens-China/Reverb/commit/f3c491b55a3cfb53183c14c36ae01d605e0ab2c5))
+
 ## 1.0.0 (2025-08-26)
 
 

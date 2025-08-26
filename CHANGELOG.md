@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/bosens-China/Reverb/compare/v1.1.0...v1.1.1) (2025-08-26)
+
+
+### Bug Fixes
+
+* 修改ci报错，更新 release.yml 和 package.json 配置 ([7be0464](https://github.com/bosens-China/Reverb/commit/7be0464c6f8546b9ed276e54f06b680b0e14892d))
+
 ## [1.1.0](https://github.com/bosens-China/Reverb/compare/v1.0.1...v1.1.0) (2025-08-26)
 
 

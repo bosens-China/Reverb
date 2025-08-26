@@ -1,0 +1,58 @@
+# .github/workflows/release.yml
+name: Release Please & Build
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write # 创建 Release、上传资产
+  pull-requests: write # 维护 Release-Please PR
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - name: Release Please
+        uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          release-type: node # 根据 package.json 版本号策略
+          # manifest-file: .release-please-manifest.json  # 如有自定义
+
+  build-windows:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm' # Corepack 会自动装 packageManager 指定版本的 pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build & package (Windows)
+        run: pnpm build:win
+        # env:
+        # 如需代码签名，取消下面两行注释并配置对应 secret
+        # CSC_LINK: ${{ secrets.WIN_CERT_BASE64 }}
+        # CSC_KEY_PASSWORD: ${{ secrets.WIN_CERT_PASSWORD }}
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.release-please.outputs.tag_name }}
+          files: |
+            dist/xiaosheng-*-setup.exe
+            dist/xiaosheng-*-setup.exe.blockmap
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
